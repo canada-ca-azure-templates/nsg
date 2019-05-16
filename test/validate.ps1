@@ -61,9 +61,9 @@ if (-not $doNotCleanup) {
     $resourceGroup = Get-AzureRmResourceGroup -Name PwS2-validate-$templateLibraryName-RG -ErrorAction SilentlyContinue
 
     if ($resourceGroup) {
-        Write-Host "Cleanup old $templateLibraryName validation resources if needed...";
+        Write-Host "Cleanup old $templateLibraryName validation resources if needed..."
 
-        New-AzureRmResourceGroupDeployment -ResourceGroupName PwS2-validate-$templateLibraryName-RG -Mode Complete -TemplateFile (Resolve-Path "$PSScriptRoot\parameters\cleanup.json") -Force -Verbose
+        Remove-AzureRmResourceGroup -Name PwS2-validate-$templateLibraryName-RG -Verbose -Force
     }
 }
 
@@ -94,5 +94,5 @@ if ($provisionningState -eq "Failed") {
 if (-not $doNotCleanup) {
     Write-Host "Cleanup old $templateLibraryName validation resources...";
 
-    New-AzureRmResourceGroupDeployment -ResourceGroupName PwS2-validate-$templateLibraryName-RG -Mode Complete -TemplateFile (Resolve-Path "$PSScriptRoot\parameters\cleanup.json") -Force -Verbose
+    Remove-AzureRmResourceGroup -Name PwS2-validate-$templateLibraryName-RG -Verbose -Force
 }
