@@ -2,127 +2,92 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "keyvaultArray": {
+        "NSGArray": {
             "value": [
                 {
-                    "name": "PwS2-validate-keyvault",
                     "resourceGroup": "PwS2-validate-nsg-RG",
-                    "sku": "Standard",
-                    "enabledForDeployment": true,
-                    "enabledForTemplateDeployment": true,
-                    "enabledForDiskEncryption": true,
-                    "accessPoliciesObjectId": "267cced3-2154-43ff-b79b-b12c331ad1d1",
-                    "networkAcls": {
-                        "defaultAction": "Allow",
-                        "bypass": "AzureServices",
-                        "virtualNetworkRules": [],
-                        "ipRules": []
-                    },
-                    "secrets": [
+                    "networkSecurityGroupName": "test1-NSG",
+                    "securityRules": [
                         {
-                            "name": "server2016DefaultPassword",
+                            "name": "https443",
                             "properties": {
-                                "value": "Validate123!"
+                                "protocol": "TCP",
+                                "sourcePortRange": "*",
+                                "destinationPortRange": "443",
+                                "sourceAddressPrefix": "*",
+                                "destinationAddressPrefix": "*",
+                                "access": "Allow",
+                                "priority": 1000,
+                                "direction": "Inbound",
+                                "sourcePortRanges": [],
+                                "destinationPortRanges": [],
+                                "sourceAddressPrefixes": [],
+                                "destinationAddressPrefixes": []
                             }
                         },
                         {
-                            "name": "linuxDefaultPassword",
+                            "name": "RDP",
                             "properties": {
-                                "value": "Validate123!"
+                                "provisioningState": "Succeeded",
+                                "protocol": "*",
+                                "sourcePortRange": "*",
+                                "destinationPortRange": "3389",
+                                "sourceAddressPrefix": "*",
+                                "destinationAddressPrefix": "*",
+                                "access": "Allow",
+                                "priority": 1010,
+                                "direction": "Inbound",
+                                "sourcePortRanges": [],
+                                "destinationPortRanges": [],
+                                "sourceAddressPrefixes": [],
+                                "destinationAddressPrefixes": []
                             }
                         },
                         {
-                            "name": "adDefaultPassword",
+                            "name": "SSH",
                             "properties": {
-                                "value": "Validate123!"
+                                "provisioningState": "Succeeded",
+                                "protocol": "*",
+                                "sourcePortRange": "*",
+                                "destinationPortRange": "22",
+                                "sourceAddressPrefix": "*",
+                                "destinationAddressPrefix": "*",
+                                "access": "Allow",
+                                "priority": 1020,
+                                "direction": "Inbound",
+                                "sourcePortRanges": [],
+                                "destinationPortRanges": [],
+                                "sourceAddressPrefixes": [],
+                                "destinationAddressPrefixes": []
                             }
                         },
                         {
-                            "name": "defaultAdminUsername",
+                            "name": "DenyAll",
                             "properties": {
-                                "value": "azureadmin"
+                                "protocol": "*",
+                                "sourcePortRange": "*",
+                                "destinationPortRange": "*",
+                                "sourceAddressPrefix": "*",
+                                "destinationAddressPrefix": "*",
+                                "access": "Deny",
+                                "priority": 4096,
+                                "direction": "Inbound",
+                                "sourcePortRanges": [],
+                                "destinationPortRanges": [],
+                                "sourceAddressPrefixes": [],
+                                "destinationAddressPrefixes": []
                             }
                         }
                     ],
                     "tagValues": {
-                        "Owner": "build.pipeline@tpsgc-pwgsc.gc.ca",
-                        "CostCenter": "PSPC-EA",
-                        "Enviroment": "Validate",
-                        "Classification": "Unclassified",
-                        "Organizations": "PSPC-CCC-E&O",
-                        "DeploymentVersion": "2018-12-14-01"
-                    }
-                },
-                {
-                    "name": "PwS2-validate-[unique]",
-                    "resourceGroup": "PwS2-validate-nsg-RG",
-                    "sku": "Standard",
-                    "enabledForDeployment": true,
-                    "enabledForTemplateDeployment": true,
-                    "enabledForDiskEncryption": true,
-                    "accessPoliciesObjectId": "267cced3-2154-43ff-b79b-b12c331ad1d1",
-                    "networkAcls": {
-                        "defaultAction": "Allow",
-                        "bypass": "AzureServices",
-                        "virtualNetworkRules": [],
-                        "ipRules": []
-                    },
-                    "secrets": [
-                        {
-                            "name": "server2016DefaultPassword",
-                            "properties": {
-                                "value": "Validate123!"
-                            }
-                        },
-                        {
-                            "name": "linuxDefaultPassword",
-                            "properties": {
-                                "value": "Validate123!"
-                            }
-                        },
-                        {
-                            "name": "adDefaultPassword",
-                            "properties": {
-                                "value": "Validate123!"
-                            }
-                        },
-                        {
-                            "name": "defaultAdminUsername",
-                            "properties": {
-                                "value": "azureadmin"
-                            }
-                        }
-                    ],
-                    "tagValues": {
-                        "Owner": "build.pipeline@tpsgc-pwgsc.gc.ca",
-                        "CostCenter": "PSPC-EA",
-                        "Enviroment": "Validate",
-                        "Classification": "Unclassified",
-                        "Organizations": "PSPC-CCC-E&O",
-                        "DeploymentVersion": "2018-12-14-01"
-                    }
-                },
-                {
-                    "name": "PwS2-validate-nose[unique]",
-                    "resourceGroup": "PwS2-validate-nsg-RG",
-                    "sku": "Standard",
-                    "enabledForDeployment": true,
-                    "enabledForTemplateDeployment": true,
-                    "enabledForDiskEncryption": true,
-                    "accessPoliciesObjectId": "267cced3-2154-43ff-b79b-b12c331ad1d1",
-                    "networkAcls": {
-                        "defaultAction": "Allow",
-                        "bypass": "AzureServices",
-                        "virtualNetworkRules": [],
-                        "ipRules": []
-                    },
-                    "tagValues": {
-                        "Owner": "build.pipeline@tpsgc-pwgsc.gc.ca",
-                        "CostCenter": "PSPC-EA",
-                        "Enviroment": "Validate",
-                        "Classification": "Unclassified",
-                        "Organizations": "PSPC-CCC-E&O",
-                        "DeploymentVersion": "2018-12-14-01"
+                        "compositeApp": "NA",
+                        "businessOwner": "PSPC-CCC",
+                        "costCenter": "PSPC-EA",
+                        "deploymentStage": "Sandbox",
+                        "vmWorkload": "Test",
+                        "vmRole": "Testing",
+                        "dataProfile": "Unclassified",
+                        "version": "0.1"
                     }
                 }
             ]

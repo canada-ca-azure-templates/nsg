@@ -57,9 +57,14 @@ if ($subscription -ne "") {
 
 # Cleanup validation resource content in case it did not properly completed and left over components are still lingeringcd
 if (-not $doNotCleanup) {
-    Write-Host "Cleanup old $templateLibraryName validation resources if needed...";
+    #check for existing resource group
+    $resourceGroup = Get-AzureRmResourceGroup -Name PwS2-validate-$templateLibraryName-RG -ErrorAction SilentlyContinue
 
-    New-AzureRmResourceGroupDeployment -ResourceGroupName PwS2-validate-$templateLibraryName-RG -Mode Complete -TemplateFile (Resolve-Path "$PSScriptRoot\parameters\cleanup.json") -Force -Verbose
+    if ($resourceGroup) {
+        Write-Host "Cleanup old $templateLibraryName validation resources if needed...";
+
+        New-AzureRmResourceGroupDeployment -ResourceGroupName PwS2-validate-$templateLibraryName-RG -Mode Complete -TemplateFile (Resolve-Path "$PSScriptRoot\parameters\cleanup.json") -Force -Verbose
+    }
 }
 
 # Start the deployment
